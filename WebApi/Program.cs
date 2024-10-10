@@ -4,6 +4,12 @@ using WebApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    var kestrelConfig = builder.Configuration.GetSection("Kestrel");
+    options.Configure(kestrelConfig);
+});
+
 // add services to DI container
 {
     var services = builder.Services;
@@ -41,4 +47,4 @@ var app = builder.Build();
     app.MapControllers();
 }
 
-app.Run("http://0.0.0.0:5000");
+app.Run();
