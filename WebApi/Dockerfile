@@ -3,7 +3,7 @@ WORKDIR /build
 
 COPY WebApi/WebApi.csproj .
 RUN dotnet restore WebApi.csproj
-COPY . .
+COPY WebApi/* .
 RUN dotnet publish --no-restore -c Release -o /build/out
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
