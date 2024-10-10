@@ -1,0 +1,43 @@
+version: '3.4'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Web/Dockerfile
+    ports:
+      - "8080:80"
+    networks:
+      - crud_network
+    depends_on:
+      - api
+
+  api:
+    build:
+      context: .
+      dockerfile: WebApi/Dockerfile
+    ports:
+      - "5000:5000"
+    networks:
+      - crud_network
+    depends_on:
+      - db
+  
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: crud-app
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - crud_network
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+networks:
+  crud_network:
+    driver: bridge
+
+volumes:
+  postgres:
+    driver: local

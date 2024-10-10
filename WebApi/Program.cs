@@ -41,4 +41,4 @@ var app = builder.Build();
     app.MapControllers();
 }
 
-app.Run("http://localhost:9080");
+app.Run("http://0.0.0.0:5000");
